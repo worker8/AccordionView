@@ -11,6 +11,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val dataArray: List<DataModel> = listOf(
+                DataModel("Dinosaur", "this is a T-Rex"),
+                DataModel("Fruit", "papaya avocado mango"),
+                DataModel("Gadget", "mouse keyboard")
+        )
+
         val row = layoutInflater.inflate(R.layout.row, container, false)
         row.id = 1
         val row2 = layoutInflater.inflate(R.layout.row, container, false)
@@ -26,12 +33,12 @@ class MainActivity : AppCompatActivity() {
 
         val set = ConstraintSet()
         set.clone(container)
-        set.connect(1, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
-        set.connect(2, ConstraintSet.BOTTOM, 1, ConstraintSet.TOP)
+        set.connect(1, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
+        set.connect(2, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
+        set.connect(3, ConstraintSet.TOP, 1, ConstraintSet.BOTTOM)
         set.connect(3, ConstraintSet.BOTTOM, 2, ConstraintSet.TOP)
-        set.connect(3, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
         set.applyTo(container)
-
-
     }
+
+    data class DataModel(val title: String, val desc: String)
 }
