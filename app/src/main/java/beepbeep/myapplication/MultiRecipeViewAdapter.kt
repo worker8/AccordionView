@@ -3,12 +3,12 @@ package beepbeep.myapplication
 import android.view.View
 import android.view.ViewGroup
 
-interface MultiRecipeViewAdapter<TitleViewHolder : ViewHolder, ContentViewHolder : ViewHolder> {
+interface MultiRecipeViewAdapter {
 
-    fun onCreateViewHolderForTitle(parent: ViewGroup): TitleViewHolder
-    fun onCreateViewHolderForContent(parent: ViewGroup): ContentViewHolder
-    fun onBindViewForTitle(view: TitleViewHolder, position: Int)
-    fun onBindViewForContent(view: ContentViewHolder, position: Int)
+    fun onCreateViewHolderForTitle(parent: ViewGroup): ViewHolder
+    fun onCreateViewHolderForContent(parent: ViewGroup): ViewHolder
+    fun onBindViewForTitle(viewHolder: ViewHolder, position: Int)
+    fun onBindViewForContent(viewHolder: ViewHolder, position: Int)
     fun getItemCount(): Int
 }
 

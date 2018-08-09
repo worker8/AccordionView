@@ -7,32 +7,28 @@ import kotlinx.android.synthetic.main.content.view.*
 import kotlinx.android.synthetic.main.row.view.*
 
 
-class CustomMultiRecipeViewAdapter : MultiRecipeViewAdapter<CustomTitleViewHolder, CustomContentViewHolder> {
-    val dataArray: List<DataModel> = listOf(
-            DataModel("Dinosaur", "this is a T-Rex"),
-            DataModel("Fruit", "papaya avocado mango"), // <-- selectedPosition
-            DataModel("Gadget", "mouse keyboard"),      // <-- selectedPosition + 1
-            DataModel("Songs", "birthday music")        // <-- dataArray.size   - 1
-    )
+class CustomMultiRecipeViewAdapter(val dataArray: List<DataModel>) : MultiRecipeViewAdapter {
 
-    override fun onCreateViewHolderForTitle(parent: ViewGroup): CustomTitleViewHolder {
+    override fun onCreateViewHolderForTitle(parent: ViewGroup): ViewHolder {
         return CustomTitleViewHolder.create(parent)
     }
 
-    override fun onCreateViewHolderForContent(parent: ViewGroup): CustomContentViewHolder {
+    override fun onCreateViewHolderForContent(parent: ViewGroup): ViewHolder {
         return CustomContentViewHolder.create(parent)
     }
 
-    override fun onBindViewForTitle(view: CustomTitleViewHolder, position: Int) {
+    override fun onBindViewForTitle(viewHolder: ViewHolder, position: Int) {
+        val customTitleViewHolder = viewHolder as CustomTitleViewHolder
         val dataModel = dataArray[position]
-        view.itemView.apply {
+        customTitleViewHolder.itemView.apply {
             titleTextView.text = dataModel.title
         }
     }
 
-    override fun onBindViewForContent(view: CustomContentViewHolder, position: Int) {
+    override fun onBindViewForContent(viewHolder: ViewHolder, position: Int) {
+        val customContentViewHolder = viewHolder as CustomContentViewHolder
         val dataModel = dataArray[position]
-        view.itemView.apply {
+        customContentViewHolder.itemView.apply {
             contentTextView.text = dataModel.desc
         }
     }

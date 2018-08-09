@@ -15,14 +15,28 @@ class MultiRecipeView @JvmOverloads constructor(context: Context, attrs: Attribu
 
     var selectedPosition = 1
 
-    val adapter = CustomMultiRecipeViewAdapter()
+    var adapter: MultiRecipeViewAdapter? = null
+        set(value) {
+            field = value
+            render()
+        }
 
-    fun render() {
+    private fun render() {
+        renderTopSection()
+        renderBottomSection()
+        renderContentSection()
+    }
+
+    private fun renderTopSection() {
+        if (adapter == null) {
+            return
+        }
+        val _adapter = adapter!!
         for (index in 0..selectedPosition) {
-            val rowViewHolder = adapter.onCreateViewHolderForTitle(this)
+            val rowViewHolder = _adapter.onCreateViewHolderForTitle(this)
             val row = rowViewHolder.itemView.apply {
                 id = index + ID_OFFSET
-                adapter.onBindViewForTitle(rowViewHolder, index)
+                _adapter.onBindViewForTitle(rowViewHolder, index)
             }
             row.setOnClickListener {
                 selectedPosition = index
@@ -41,11 +55,18 @@ class MultiRecipeView @JvmOverloads constructor(context: Context, attrs: Attribu
             set.applyTo(this)
 
         }
-        for (reversedIndex in adapter.getItemCount() - 1 downTo selectedPosition + 1) {
-            val rowViewHolder = adapter.onCreateViewHolderForTitle(this)
+    }
+
+    private fun renderBottomSection() {
+        if (adapter == null) {
+            return
+        }
+        val _adapter = adapter!!
+        for (reversedIndex in _adapter.getItemCount() - 1 downTo selectedPosition + 1) {
+            val rowViewHolder = _adapter.onCreateViewHolderForTitle(this)
             val row = rowViewHolder.itemView.apply {
                 id = reversedIndex + ID_OFFSET
-                adapter.onBindViewForTitle(rowViewHolder, reversedIndex)
+                _adapter.onBindViewForTitle(rowViewHolder, reversedIndex)
             }
             row.setOnClickListener {
                 selectedPosition = reversedIndex
@@ -55,7 +76,7 @@ class MultiRecipeView @JvmOverloads constructor(context: Context, attrs: Attribu
 
             val set = ConstraintSet()
             set.clone(this)
-            if (reversedIndex == adapter.getItemCount() - 1) {
+            if (reversedIndex == _adapter.getItemCount() - 1) {
                 set.connect(row.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
             } else {
                 set.connect(row.id, ConstraintSet.BOTTOM, row.id + 1, ConstraintSet.TOP)
@@ -63,21 +84,27 @@ class MultiRecipeView @JvmOverloads constructor(context: Context, attrs: Attribu
 
             set.applyTo(this)
         }
+    }
 
+    private fun renderContentSection() {
+        if (adapter == null) {
+            return
+        }
+        val _adapter = adapter!!
         val positionAboveContent = selectedPosition
         val positionBelowContent = selectedPosition + 1
 
         val rowIdAboveContent = positionAboveContent + ID_OFFSET
-        val rowIdBelowContent = if (selectedPosition == adapter.getItemCount() - 1) {
+        val rowIdBelowContent = if (selectedPosition == _adapter.getItemCount() - 1) {
             ConstraintSet.PARENT_ID
         } else {
             positionBelowContent + ID_OFFSET
         }
 
-        val contentViewHolder = adapter.onCreateViewHolderForContent(this)
+        val contentViewHolder = _adapter.onCreateViewHolderForContent(this)
         val content = contentViewHolder.itemView.apply {
             id = CONTENT_ID
-            adapter.onBindViewForContent(contentViewHolder, selectedPosition)
+            _adapter.onBindViewForContent(contentViewHolder, selectedPosition)
         }
 
         addView(content)
@@ -85,7 +112,7 @@ class MultiRecipeView @JvmOverloads constructor(context: Context, attrs: Attribu
         val set = ConstraintSet()
         set.clone(this)
         set.connect(content.id, ConstraintSet.TOP, rowIdAboveContent, ConstraintSet.BOTTOM)
-        set.connect(content.id, ConstraintSet.BOTTOM, rowIdBelowContent, if (selectedPosition == adapter.getItemCount() - 1) {
+        set.connect(content.id, ConstraintSet.BOTTOM, rowIdBelowContent, if (selectedPosition == _adapter.getItemCount() - 1) {
             ConstraintSet.BOTTOM // align to parent's bottom if it is the last one
         } else {
             ConstraintSet.TOP
@@ -94,7 +121,4 @@ class MultiRecipeView @JvmOverloads constructor(context: Context, attrs: Attribu
         set.applyTo(this)
     }
 
-    init {
-        render()
-    }
 }
