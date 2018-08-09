@@ -41,7 +41,7 @@ class MultiRecipeView @JvmOverloads constructor(context: Context, attrs: Attribu
                 id = index + ID_OFFSET
                 _adapter.onBindViewForTitle(rowViewHolder, index)
             }
-            row.setOnClickListener {
+            row.setOnClickListener2 {
                 selectedPosition = index
                 render()
             }
@@ -71,7 +71,7 @@ class MultiRecipeView @JvmOverloads constructor(context: Context, attrs: Attribu
                 id = reversedIndex + ID_OFFSET
                 _adapter.onBindViewForTitle(rowViewHolder, reversedIndex)
             }
-            row.setOnClickListener {
+            row.setOnClickListener2 {
                 selectedPosition = reversedIndex
                 render()
             }
