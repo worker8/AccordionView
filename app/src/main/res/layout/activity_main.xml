@@ -7,4 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <beepbeep.myapplication.MultiRecipeView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></beepbeep.myapplication.MultiRecipeView>
 </android.support.constraint.ConstraintLayout>
