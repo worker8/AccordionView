@@ -4,6 +4,9 @@ import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
 import android.util.AttributeSet
+import android.view.MotionEvent
+import android.view.View
+
 
 class MultiRecipeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : ConstraintLayout(context, attrs, defStyleAttr) {
     /**
@@ -119,6 +122,16 @@ class MultiRecipeView @JvmOverloads constructor(context: Context, attrs: Attribu
         })
 
         set.applyTo(this)
+    }
+
+    private fun View.setOnClickListener2(callback: (View) -> Unit) {
+        setOnTouchListener { view, event ->
+            if (event.actionMasked == MotionEvent.ACTION_UP) {
+                callback.invoke(view)
+                callOnClick()
+            }
+            true
+        }
     }
 
 }
