@@ -9,6 +9,7 @@ import android.view.View
 
 
 class MultiRecipeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : ConstraintLayout(context, attrs, defStyleAttr) {
+
     /**
      * this is needed, because ConstraintSet.PARENT_ID is 0, this can be any number
      */
@@ -39,7 +40,12 @@ class MultiRecipeView @JvmOverloads constructor(context: Context, attrs: Attribu
             val rowViewHolder = _adapter.onCreateViewHolderForTitle(this)
             val row = rowViewHolder.itemView.apply {
                 id = index + ID_OFFSET
-                _adapter.onBindViewForTitle(rowViewHolder, index)
+                val arrowDirection = if (selectedPosition == index) {
+                    MultiRecipeViewAdapter.ArrowDirection.NONE
+                } else {
+                    MultiRecipeViewAdapter.ArrowDirection.DOWN
+                }
+                _adapter.onBindViewForTitle(rowViewHolder, index, arrowDirection)
             }
             row.setOnClickListener2 {
                 selectedPosition = index
@@ -69,7 +75,12 @@ class MultiRecipeView @JvmOverloads constructor(context: Context, attrs: Attribu
             val rowViewHolder = _adapter.onCreateViewHolderForTitle(this)
             val row = rowViewHolder.itemView.apply {
                 id = reversedIndex + ID_OFFSET
-                _adapter.onBindViewForTitle(rowViewHolder, reversedIndex)
+                val arrowDirection = if (selectedPosition == reversedIndex) {
+                    MultiRecipeViewAdapter.ArrowDirection.NONE
+                } else {
+                    MultiRecipeViewAdapter.ArrowDirection.UP
+                }
+                _adapter.onBindViewForTitle(rowViewHolder, reversedIndex, arrowDirection)
             }
             row.setOnClickListener2 {
                 selectedPosition = reversedIndex

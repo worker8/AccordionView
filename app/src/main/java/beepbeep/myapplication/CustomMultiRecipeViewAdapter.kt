@@ -17,11 +17,17 @@ class CustomMultiRecipeViewAdapter(val dataArray: List<DataModel>) : MultiRecipe
         return CustomContentViewHolder.create(parent)
     }
 
-    override fun onBindViewForTitle(viewHolder: ViewHolder, position: Int) {
+    override fun onBindViewForTitle(viewHolder: ViewHolder, position: Int, arrowDirection: MultiRecipeViewAdapter.ArrowDirection) {
         val customTitleViewHolder = viewHolder as CustomTitleViewHolder
         val dataModel = dataArray[position]
         customTitleViewHolder.itemView.apply {
             titleTextView.text = dataModel.title
+
+            when (arrowDirection) {
+                MultiRecipeViewAdapter.ArrowDirection.UP -> titleArrowIcon.text = "▲"
+                MultiRecipeViewAdapter.ArrowDirection.DOWN -> titleArrowIcon.text = "▼"
+                MultiRecipeViewAdapter.ArrowDirection.NONE -> titleArrowIcon.text = ""
+            }
         }
     }
 

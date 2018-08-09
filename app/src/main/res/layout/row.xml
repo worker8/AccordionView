@@ -15,4 +15,15 @@
         android:text="Hello World!"
         android:textColor="@color/md_white_1000"
         android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/titleArrowIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:layout_margin="15dp"
+        android:gravity="center_vertical"
+        android:text="▲"
+        android:textColor="@color/md_white_1000"
+        android:textSize="24dp" />
 </FrameLayout>
