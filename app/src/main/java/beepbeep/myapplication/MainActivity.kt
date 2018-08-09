@@ -8,8 +8,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content.view.*
 import kotlinx.android.synthetic.main.row.view.*
 
-data class DataModel(val title: String, val desc: String)
-
 class MainActivity : AppCompatActivity() {
 
     /**
