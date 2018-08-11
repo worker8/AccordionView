@@ -31,11 +31,12 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
             field = value
             render()
         }
-    val titleViewHolderArray = mutableListOf<ViewHolder>()
+    private val titleViewHolderArray = mutableListOf<ViewHolder>()
+    private var contentViewHolder: ViewHolder? = null
 
     private fun render() {
-        renderTitleViews()
-        renderContent()
+        createTitleViews()
+//        createContent()
         addAllViews()
         applyConstraint()
     }
@@ -49,7 +50,7 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
         }
     }
 
-    private fun renderTitleViews() {
+    private fun createTitleViews() {
         adapter?.let { _adapter ->
             // loop and make bunch of Rows: store in array
             for (index in 0 until _adapter.getItemCount()) {
@@ -78,8 +79,7 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
         }
     }
 
-    private var contentViewHolder: ViewHolder? = null
-    private fun renderContent() {
+    private fun createContent() {
         adapter?.let { _adapter ->
             if (contentViewHolder == null) {
                 contentViewHolder = _adapter.onCreateViewHolderForContent(this)
@@ -116,6 +116,32 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
         }
         TransitionManager.beginDelayedTransition(this)
         set.applyTo(this)
+
+//        val set2 = ConstraintSet()
+//        set2.clone(this)
+//        contentViewHolder?.let {
+//            val content = it.itemView
+//            val positionAboveContent = selectedPosition
+//            val positionBelowContent = selectedPosition + 1
+//
+//            val rowIdAboveContent = titleViewHolderArray[positionAboveContent].itemView.id
+//            val rowIdBelowContent = if (selectedPosition == titleViewHolderArray.size - 1) {
+//                ConstraintSet.PARENT_ID
+//            } else {
+//                titleViewHolderArray[positionBelowContent].itemView.id
+//            }
+//
+//            set2.connect(content.id, ConstraintSet.TOP, rowIdAboveContent, ConstraintSet.BOTTOM)
+//            set2.connect(
+//                    content.id, ConstraintSet.BOTTOM, rowIdBelowContent, if (selectedPosition == titleViewHolderArray.size - 1) {
+//                ConstraintSet.BOTTOM // align to parent's bottom if it is the last one
+//            } else {
+//                ConstraintSet.TOP
+//            }
+//            )
+//        }
+//        TransitionManager.beginDelayedTransition(this)
+//        set2.applyTo(this)
     }
 
     private fun View.setOnClickListener2(callback: (View) -> Unit) {
