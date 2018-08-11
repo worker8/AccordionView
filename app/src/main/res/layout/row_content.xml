@@ -17,16 +17,11 @@
         android:padding="10dp"
         android:text="Hello World!"
         android:textColor="@color/md_black_1000"
-        android:textSize="20sp"
-        android:visibility="gone" />
+        android:textSize="20sp" />
 
     <FrameLayout
-    android:id="@+id/contentFragment"
-    android:layout_width="match_parent"
-    android:layout_height="300dp"></FrameLayout>
-    <!--<fragment-->
-        <!--android:id="@+id/myCuteFragment"-->
-        <!--android:name="beepbeep.myapplication.SmallContentFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent" />-->
+        android:id="@+id/contentFragment"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"></FrameLayout>
+
 </FrameLayout>

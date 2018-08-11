@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rowContainer"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
+    android:layout_height="match_parent"
     android:layout_weight="1"
-    android:background="@color/md_red_300"
+    android:background="@color/md_green_500"
     tools:layout_height="100dp">
 
     <TextView
-        android:id="@+id/contentTextView"
+        android:id="@+id/smallTextView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -17,16 +17,6 @@
         android:padding="10dp"
         android:text="Hello World!"
         android:textColor="@color/md_black_1000"
-        android:textSize="20sp"
-        android:visibility="gone" />
+        android:textSize="20sp" />
 
-    <FrameLayout
-    android:id="@+id/contentFragment"
-    android:layout_width="match_parent"
-    android:layout_height="300dp"></FrameLayout>
-    <!--<fragment-->
-        <!--android:id="@+id/myCuteFragment"-->
-        <!--android:name="beepbeep.myapplication.SmallContentFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent" />-->
 </FrameLayout>

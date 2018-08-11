@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.content.view.*
 import kotlinx.android.synthetic.main.row.view.*
 
 
-class CustomMultiRecipeViewAdapter(val dataArray: List<DataModel>) : MultiRecipeViewAdapter {
+class CustomMultiRecipeViewAdapter(val dataArray: List<DataModel>, val callback: (View) -> Unit) : MultiRecipeViewAdapter {
 
     override fun onCreateViewHolderForTitle(parent: ViewGroup): ViewHolder {
         return CustomTitleViewHolder.create(parent)
@@ -36,6 +36,8 @@ class CustomMultiRecipeViewAdapter(val dataArray: List<DataModel>) : MultiRecipe
         val dataModel = dataArray[position]
         customContentViewHolder.itemView.apply {
             contentTextView.text = dataModel.desc
+            contentFragment.id = contentFragment.id + 1
+            callback.invoke(this)
         }
     }
 

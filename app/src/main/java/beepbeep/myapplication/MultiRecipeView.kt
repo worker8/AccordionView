@@ -40,18 +40,19 @@ class MultiRecipeView @JvmOverloads constructor(context: Context, attrs: Attribu
             val rowViewHolder = _adapter.onCreateViewHolderForTitle(this)
             val row = rowViewHolder.itemView.apply {
                 id = index + ID_OFFSET
-                val arrowDirection = if (selectedPosition == index) {
-                    MultiRecipeViewAdapter.ArrowDirection.NONE
-                } else {
-                    MultiRecipeViewAdapter.ArrowDirection.DOWN
-                }
-                _adapter.onBindViewForTitle(rowViewHolder, index, arrowDirection)
             }
             row.setOnClickListener2 {
                 selectedPosition = index
                 render()
             }
             addView(row)
+
+            val arrowDirection = if (selectedPosition == index) {
+                MultiRecipeViewAdapter.ArrowDirection.NONE
+            } else {
+                MultiRecipeViewAdapter.ArrowDirection.DOWN
+            }
+            _adapter.onBindViewForTitle(rowViewHolder, index, arrowDirection)
 
             val set = ConstraintSet()
             set.clone(this)
@@ -75,19 +76,18 @@ class MultiRecipeView @JvmOverloads constructor(context: Context, attrs: Attribu
             val rowViewHolder = _adapter.onCreateViewHolderForTitle(this)
             val row = rowViewHolder.itemView.apply {
                 id = reversedIndex + ID_OFFSET
-                val arrowDirection = if (selectedPosition == reversedIndex) {
-                    MultiRecipeViewAdapter.ArrowDirection.NONE
-                } else {
-                    MultiRecipeViewAdapter.ArrowDirection.UP
-                }
-                _adapter.onBindViewForTitle(rowViewHolder, reversedIndex, arrowDirection)
             }
             row.setOnClickListener2 {
                 selectedPosition = reversedIndex
                 render()
             }
             this.addView(row)
-
+            val arrowDirection = if (selectedPosition == reversedIndex) {
+                MultiRecipeViewAdapter.ArrowDirection.NONE
+            } else {
+                MultiRecipeViewAdapter.ArrowDirection.UP
+            }
+            _adapter.onBindViewForTitle(rowViewHolder, reversedIndex, arrowDirection)
             val set = ConstraintSet()
             set.clone(this)
             if (reversedIndex == _adapter.getItemCount() - 1) {
@@ -118,11 +118,10 @@ class MultiRecipeView @JvmOverloads constructor(context: Context, attrs: Attribu
         val contentViewHolder = _adapter.onCreateViewHolderForContent(this)
         val content = contentViewHolder.itemView.apply {
             id = CONTENT_ID
-            _adapter.onBindViewForContent(contentViewHolder, selectedPosition)
         }
 
         addView(content)
-
+        _adapter.onBindViewForContent(contentViewHolder, selectedPosition)
         val set = ConstraintSet()
         set.clone(this)
         set.connect(content.id, ConstraintSet.TOP, rowIdAboveContent, ConstraintSet.BOTTOM)
