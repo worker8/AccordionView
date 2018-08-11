@@ -21,7 +21,11 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
             adapter?.let {
                 if (value < it.getItemCount() && value >= 0) {
                     field = value
-                    applyConstraint()
+                    removeAllViews()
+                    titleViewHolderArray.removeAll { true }
+                    contentViewHolder = null
+                    render()
+//                    applyConstraint()
                 }
             }
         }
@@ -36,7 +40,7 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
 
     private fun render() {
         createTitleViews()
-//        createContent()
+        createContent()
         addAllViews()
         applyConstraint()
     }
@@ -46,7 +50,7 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
             titleViewHolderArray.forEach {
                 addView(it.itemView)
             }
-            addView(contentViewHolder?.itemView)
+            contentViewHolder?.apply { addView(itemView) }
         }
     }
 
@@ -86,7 +90,9 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
                 contentViewHolder?.itemView.apply {
                     id = View.generateViewId()
                     tag = id.toString()
+
                 }
+                contentViewHolder?.let { _adapter.onBindViewForContent(it, selectedPosition) }
             }
         }
     }
@@ -117,31 +123,31 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
         TransitionManager.beginDelayedTransition(this)
         set.applyTo(this)
 
-//        val set2 = ConstraintSet()
-//        set2.clone(this)
-//        contentViewHolder?.let {
-//            val content = it.itemView
-//            val positionAboveContent = selectedPosition
-//            val positionBelowContent = selectedPosition + 1
-//
-//            val rowIdAboveContent = titleViewHolderArray[positionAboveContent].itemView.id
-//            val rowIdBelowContent = if (selectedPosition == titleViewHolderArray.size - 1) {
-//                ConstraintSet.PARENT_ID
-//            } else {
-//                titleViewHolderArray[positionBelowContent].itemView.id
-//            }
-//
-//            set2.connect(content.id, ConstraintSet.TOP, rowIdAboveContent, ConstraintSet.BOTTOM)
-//            set2.connect(
-//                    content.id, ConstraintSet.BOTTOM, rowIdBelowContent, if (selectedPosition == titleViewHolderArray.size - 1) {
-//                ConstraintSet.BOTTOM // align to parent's bottom if it is the last one
-//            } else {
-//                ConstraintSet.TOP
-//            }
-//            )
-//        }
-//        TransitionManager.beginDelayedTransition(this)
-//        set2.applyTo(this)
+        val set2 = ConstraintSet()
+        set2.clone(this)
+        contentViewHolder?.let {
+            val content = it.itemView
+            val positionAboveContent = selectedPosition
+            val positionBelowContent = selectedPosition + 1
+
+            val rowIdAboveContent = titleViewHolderArray[positionAboveContent].itemView.id
+            val rowIdBelowContent = if (selectedPosition == titleViewHolderArray.size - 1) {
+                ConstraintSet.PARENT_ID
+            } else {
+                titleViewHolderArray[positionBelowContent].itemView.id
+            }
+
+            set2.connect(content.id, ConstraintSet.TOP, rowIdAboveContent, ConstraintSet.BOTTOM)
+            set2.connect(
+                    content.id, ConstraintSet.BOTTOM, rowIdBelowContent, if (selectedPosition == titleViewHolderArray.size - 1) {
+                ConstraintSet.BOTTOM // align to parent's bottom if it is the last one
+            } else {
+                ConstraintSet.TOP
+            }
+            )
+        }
+        TransitionManager.beginDelayedTransition(this)
+        set2.applyTo(this)
     }
 
     private fun View.setOnClickListener2(callback: (View) -> Unit) {

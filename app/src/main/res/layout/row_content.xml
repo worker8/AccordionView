@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="1"
-    android:visibility="gone"
-    android:background="@color/md_red_300"
+    android:background="@color/md_grey_300"
     tools:layout_height="100dp">
 
     <TextView
