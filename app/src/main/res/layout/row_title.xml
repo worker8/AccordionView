@@ -3,7 +3,7 @@
     android:id="@+id/rowContainer"
     android:layout_width="match_parent"
     android:layout_height="70dp"
-    android:background="@color/md_blue_800">
+    android:background="@color/md_grey_100">
 
     <TextView
         android:id="@+id/titleTextView"
@@ -13,8 +13,10 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="Hello World!"
-        android:textColor="@color/md_white_1000"
-        android:textSize="20sp" />
+        android:textAllCaps="true"
+        android:textColor="@color/md_grey_800"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/titleArrowIcon"
@@ -24,6 +26,14 @@
         android:layout_margin="15dp"
         android:gravity="center_vertical"
         android:text="▲"
-        android:textColor="@color/md_white_1000"
+        android:textColor="@color/md_grey_800"
         android:textSize="24dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_gravity="bottom"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:background="@color/md_grey_300" />
 </FrameLayout>

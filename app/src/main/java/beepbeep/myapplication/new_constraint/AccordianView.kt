@@ -5,27 +5,26 @@ import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
 import android.support.transition.TransitionManager
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
+
 
 class AccordianView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
         ConstraintLayout(context, attrs, defStyleAttr) {
 
-    /**
-     * this is needed, because ConstraintSet.PARENT_ID is 0, this can be any number
-     */
-    val ID_OFFSET = 999
+    private val titleViewHolderArray = mutableListOf<ViewHolder>()
 
-    var selectedPosition = 1
+    private var contentViewHolder: ViewHolder? = null
+
+    var selectedPosition = 0
         set(value) {
-            adapter?.let {
-                if (value < it.getItemCount() && value >= 0) {
+            adapter?.let { _adapter ->
+                if (value < _adapter.getItemCount() && value >= 0) {
                     field = value
-                    removeAllViews()
-                    titleViewHolderArray.removeAll { true }
-                    contentViewHolder = null
-                    render()
-//                    applyConstraint()
+                    applyConstraint()
                 }
             }
         }
@@ -35,8 +34,6 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
             field = value
             render()
         }
-    private val titleViewHolderArray = mutableListOf<ViewHolder>()
-    private var contentViewHolder: ViewHolder? = null
 
     private fun render() {
         createTitleViews()
@@ -66,20 +63,34 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
                         tag = id.toString()
                     }
                     row.setOnClickListener2 {
-                        selectedPosition = index
-                    }
-                    val arrowDirection = if (selectedPosition == index) {
-                        AccordianAdapter.ArrowDirection.NONE
-                    } else if (index < selectedPosition) {
-                        AccordianAdapter.ArrowDirection.DOWN
-                    } else {
-                        AccordianAdapter.ArrowDirection.UP
-                    }
-                    _adapter.onBindViewForTitle(viewHolder, index, arrowDirection)
+                        contentViewHolder?.let { _contentViewHolder ->
+                            _contentViewHolder.itemView.visibility = View.INVISIBLE
+                            selectedPosition = index
+                            titleViewHolderArray.forEachIndexed { innerIndex, innerViewHolder ->
+                                _adapter.onBindViewForTitle(innerViewHolder, innerIndex, arrowDirection(innerIndex))
+                            }
 
+                            _adapter.onBindViewForContent(_contentViewHolder, index)
+                            _contentViewHolder.itemView.visibility = View.VISIBLE
+                        }
+                    }
+                    _adapter.onBindViewForTitle(viewHolder, index, arrowDirection(index))
                     titleViewHolderArray.add(viewHolder)
                 }
             }
+        }
+    }
+
+    private fun arrowDirection(index: Int): AccordianAdapter.ArrowDirection {
+        return if (selectedPosition == index) {
+            Log.d("ddw", "NONE")
+            AccordianAdapter.ArrowDirection.NONE
+        } else if (index < selectedPosition) {
+            Log.d("ddw", "DOWN")
+            AccordianAdapter.ArrowDirection.DOWN
+        } else {
+            Log.d("ddw", "UP")
+            AccordianAdapter.ArrowDirection.UP
         }
     }
 
@@ -102,23 +113,31 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
         set.clone(this)
         for (index in 0..selectedPosition) {
             val row = titleViewHolderArray[index].itemView
-
+            set.clear(row.id, ConstraintSet.TOP)
+            set.clear(row.id, ConstraintSet.BOTTOM)
             if (index == 0) {
                 set.connect(row.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
             } else {
                 val previousRow = titleViewHolderArray[index - 1].itemView
                 set.connect(row.id, ConstraintSet.TOP, previousRow.id, ConstraintSet.BOTTOM)
             }
+            set.connect(row.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
+            set.connect(row.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
+
         }
 
         for (reversedIndex in titleViewHolderArray.size - 1 downTo selectedPosition + 1) {
             val row = titleViewHolderArray[reversedIndex].itemView
+            set.clear(row.id, ConstraintSet.TOP)
+            set.clear(row.id, ConstraintSet.BOTTOM)
             if (reversedIndex == titleViewHolderArray.size - 1) {
                 set.connect(row.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
             } else {
                 val previousRow = titleViewHolderArray[reversedIndex + 1].itemView
                 set.connect(row.id, ConstraintSet.BOTTOM, previousRow.id, ConstraintSet.TOP)
             }
+            set.connect(row.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
+            set.connect(row.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
         }
         TransitionManager.beginDelayedTransition(this)
         set.applyTo(this)
@@ -136,7 +155,8 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
             } else {
                 titleViewHolderArray[positionBelowContent].itemView.id
             }
-
+            set.clear(content.id, ConstraintSet.TOP)
+            set.clear(content.id, ConstraintSet.BOTTOM)
             set2.connect(content.id, ConstraintSet.TOP, rowIdAboveContent, ConstraintSet.BOTTOM)
             set2.connect(
                     content.id, ConstraintSet.BOTTOM, rowIdBelowContent, if (selectedPosition == titleViewHolderArray.size - 1) {
@@ -145,6 +165,8 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
                 ConstraintSet.TOP
             }
             )
+            set.connect(content.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
+            set.connect(content.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
         }
         TransitionManager.beginDelayedTransition(this)
         set2.applyTo(this)
@@ -158,5 +180,16 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
             }
             true
         }
+    }
+
+    fun scaleView(v: View, startScale: Float, endScale: Float) {
+        val anim = ScaleAnimation(
+                1f, 1f, // Start and end values for the X axis scaling
+                startScale, endScale, // Start and end values for the Y axis scaling
+                Animation.RELATIVE_TO_SELF, 0f, // Pivot point of X scaling
+                Animation.RELATIVE_TO_SELF, 0f) // Pivot point of Y scaling
+        anim.fillAfter = true // Needed to keep the result of the animation
+        anim.duration = 200
+        v.startAnimation(anim)
     }
 }

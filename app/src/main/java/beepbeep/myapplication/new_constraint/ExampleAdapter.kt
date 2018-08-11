@@ -21,6 +21,11 @@ class ExampleAdapter(val dataArray: List<DataModel>) : AccordianAdapter {
         val dataModel = dataArray[position]
         (viewHolder as TitleViewHolder).itemView.apply {
             titleTextView.text = dataModel.title
+            when (arrowDirection) {
+                AccordianAdapter.ArrowDirection.UP -> titleArrowIcon.text = "▲"
+                AccordianAdapter.ArrowDirection.DOWN -> titleArrowIcon.text = "▼"
+                AccordianAdapter.ArrowDirection.NONE -> titleArrowIcon.text = ""
+            }
         }
     }
 
@@ -32,7 +37,6 @@ class ExampleAdapter(val dataArray: List<DataModel>) : AccordianAdapter {
     }
 
     override fun getItemCount() = dataArray.size
-
 }
 
 class TitleViewHolder(itemView: View) : ViewHolder(itemView) {
