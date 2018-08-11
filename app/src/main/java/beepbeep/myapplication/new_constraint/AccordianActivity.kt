@@ -13,7 +13,9 @@ class AccordianActivity : AppCompatActivity() {
         val adapter = ExampleAdapter(listOf(
                 DataModel("title 1", "desc desc desc 1"),
                 DataModel("title 2", "desc desc desc 2"),
-                DataModel("title 3", "desc desc desc 3")
+                DataModel("title 3", "desc desc desc 3"),
+                DataModel("title 4", "desc desc desc 4"),
+                DataModel("title 5", "desc desc desc 5")
         ))
         accordian_view.adapter = adapter
     }
