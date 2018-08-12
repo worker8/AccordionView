@@ -1,16 +1,16 @@
-package beepbeep.myapplication.new_constraint
+package beepbeep.accordianView.sample
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import beepbeep.myapplication.DataModel
-import beepbeep.myapplication.R
+import beepbeep.accordianView.DataModel
+import beepbeep.accordianView.R
 import kotlinx.android.synthetic.main.activity_accordian.*
 
-class AccordianActivity : AppCompatActivity() {
+class RandomFactActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_accordian)
-        val adapter = ExampleAdapter(listOf(
+        val adapter = RandomAdapter(listOf(
                 DataModel("Zombie Facts", "In Haitian folklore, a zombie (Haitian French: zombi, Haitian Creole: zonbi) is an animated corpse raised by magical means, such as witchcraft. The concept has been popularly associated with the religion of voodoo, but it plays no part in that faith's formal practices."),
                 DataModel("Mariana Trench", "The Mariana Trench or Marianas Trench, located in the western Pacific Ocean approximately 200 kilometres east of the Mariana Islands, is the deepest point in the world's oceans."),
                 DataModel("Broccoli Facts", "It has been eaten there since the time of the ancient Romans in the 6th Century BC. 2. Broccoli is a member of the cabbage family, making it a cruciferous vegetable. It's name is derived from the Italian word broccolo, meaning the flowering top of a cabbage."),

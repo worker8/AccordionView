@@ -1,14 +1,14 @@
-package beepbeep.myapplication.new_constraint
+package beepbeep.accordianView.sample
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import beepbeep.myapplication.DataModel
-import beepbeep.myapplication.R
+import beepbeep.accordianView.DataModel
+import beepbeep.accordianView.R
 import kotlinx.android.synthetic.main.row_content.view.*
 import kotlinx.android.synthetic.main.row_title.view.*
 
-class ExampleAdapter(val dataArray: List<DataModel>) : AccordianAdapter {
+class RandomAdapter(val dataArray: List<DataModel>) : AccordianAdapter {
     override fun onCreateViewHolderForTitle(parent: ViewGroup): ViewHolder {
         return TitleViewHolder.create(parent)
     }

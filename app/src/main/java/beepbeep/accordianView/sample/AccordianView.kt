@@ -1,4 +1,4 @@
-package beepbeep.myapplication.new_constraint
+package beepbeep.accordianView.sample
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout

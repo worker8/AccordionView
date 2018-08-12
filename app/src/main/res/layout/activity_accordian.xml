@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <beepbeep.myapplication.new_constraint.AccordianView
+    <beepbeep.accordianView.sample.AccordianView
         android:id="@+id/accordian_view"
         android:layout_width="0dp"
         android:layout_height="0dp"

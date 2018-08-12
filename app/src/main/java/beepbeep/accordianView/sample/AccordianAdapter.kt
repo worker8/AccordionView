@@ -1,9 +1,9 @@
-package beepbeep.myapplication
+package beepbeep.accordianView.sample
 
 import android.view.View
 import android.view.ViewGroup
 
-interface MultiRecipeViewAdapter {
+interface AccordianAdapter {
     enum class ArrowDirection {
         UP, DOWN, NONE
     }
