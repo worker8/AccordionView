@@ -5,7 +5,6 @@ import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
 import android.support.transition.TransitionManager
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.Animation
@@ -98,13 +97,10 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
 
     private fun arrowDirection(index: Int): AccordianAdapter.ArrowDirection {
         return if (selectedPosition == index) {
-            Log.d("ddw", "NONE")
             AccordianAdapter.ArrowDirection.NONE
         } else if (index < selectedPosition) {
-            Log.d("ddw", "DOWN")
             AccordianAdapter.ArrowDirection.DOWN
         } else {
-            Log.d("ddw", "UP")
             AccordianAdapter.ArrowDirection.UP
         }
     }
@@ -184,15 +180,5 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
         }
     }
 
-    fun scaleView(v: View, startScale: Float, endScale: Float) {
-        val anim = ScaleAnimation(
-                1f, 1f, // Start and end values for the X axis scaling
-                startScale, endScale, // Start and end values for the Y axis scaling
-                Animation.RELATIVE_TO_SELF, 0f, // Pivot point of X scaling
-                Animation.RELATIVE_TO_SELF, 0f) // Pivot point of Y scaling
-        anim.fillAfter = true // Needed to keep the result of the animation
-        anim.duration = 200
-        v.startAnimation(anim)
-    }
     open class ViewHolder(val itemView: View)
 }
