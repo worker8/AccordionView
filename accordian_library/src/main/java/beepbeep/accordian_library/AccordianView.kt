@@ -22,7 +22,7 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
     var selectedPosition = 0
         set(value) {
             adapter?.let { _adapter ->
-                if (value < _adapter.getItemCount() && value >= 0) {
+                if (value < _adapter.getItemCount() && value >= 0 && field != value) {
                     field = value
                     applyConstraint()
                 }
