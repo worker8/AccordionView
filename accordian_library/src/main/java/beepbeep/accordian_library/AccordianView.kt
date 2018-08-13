@@ -7,8 +7,6 @@ import android.support.transition.TransitionManager
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.ScaleAnimation
 
 
 class AccordianView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
@@ -75,9 +73,9 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
         adapter?.let { _adapter ->
             if (contentViewHolder == null) {
                 contentViewHolder = _adapter.onCreateViewHolderForContent(this)
-                contentViewHolder?.itemView.apply {
-                    id = View.generateViewId()
-                    tag = id.toString()
+                contentViewHolder?.itemView?.let { itemView ->
+                    itemView.id = View.generateViewId()
+                    itemView.tag = itemView.id.toString()
 
                 }
                 contentViewHolder?.let { _adapter.onBindViewForContent(it, selectedPosition) }
