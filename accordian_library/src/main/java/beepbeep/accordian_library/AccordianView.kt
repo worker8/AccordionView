@@ -1,4 +1,4 @@
-package beepbeep.accordianView.sample
+package beepbeep.accordian_library
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout
@@ -42,15 +42,6 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
         applyConstraint()
     }
 
-    private fun addAllViews() {
-        adapter?.let { _adapter ->
-            titleViewHolderArray.forEach {
-                addView(it.itemView)
-            }
-            contentViewHolder?.apply { addView(itemView) }
-        }
-    }
-
     private fun createTitleViews() {
         adapter?.let { _adapter ->
             // loop and make bunch of Rows: store in array
@@ -81,19 +72,6 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
         }
     }
 
-    private fun arrowDirection(index: Int): AccordianAdapter.ArrowDirection {
-        return if (selectedPosition == index) {
-            Log.d("ddw", "NONE")
-            AccordianAdapter.ArrowDirection.NONE
-        } else if (index < selectedPosition) {
-            Log.d("ddw", "DOWN")
-            AccordianAdapter.ArrowDirection.DOWN
-        } else {
-            Log.d("ddw", "UP")
-            AccordianAdapter.ArrowDirection.UP
-        }
-    }
-
     private fun createContent() {
         adapter?.let { _adapter ->
             if (contentViewHolder == null) {
@@ -107,6 +85,30 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
             }
         }
     }
+
+    private fun addAllViews() {
+        adapter?.let { _adapter ->
+            titleViewHolderArray.forEach {
+                addView(it.itemView)
+            }
+            contentViewHolder?.apply { addView(itemView) }
+        }
+    }
+
+
+    private fun arrowDirection(index: Int): AccordianAdapter.ArrowDirection {
+        return if (selectedPosition == index) {
+            Log.d("ddw", "NONE")
+            AccordianAdapter.ArrowDirection.NONE
+        } else if (index < selectedPosition) {
+            Log.d("ddw", "DOWN")
+            AccordianAdapter.ArrowDirection.DOWN
+        } else {
+            Log.d("ddw", "UP")
+            AccordianAdapter.ArrowDirection.UP
+        }
+    }
+
 
     private fun applyConstraint() {
         val set = ConstraintSet()
@@ -192,4 +194,5 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
         anim.duration = 200
         v.startAnimation(anim)
     }
+    open class ViewHolder(val itemView: View)
 }

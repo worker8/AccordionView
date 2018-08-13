@@ -1,33 +1,38 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion ToolVersion.compileSdkVersion
+
     defaultConfig {
-        applicationId "beepbeep.myapplication"
         minSdkVersion ToolVersion.minSdkVersion
         targetSdkVersion ToolVersion.compileSdkVersion
         versionCode ToolVersion.versionCode
         versionName ToolVersion.versionName
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:${DependencyVersion.supportLibrary}"
     implementation "com.android.support.constraint:constraint-layout:${DependencyVersion.constraintLayout}"
     implementation "com.android.support:design:${DependencyVersion.supportLibrary}"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation project(':accordian_library')
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
