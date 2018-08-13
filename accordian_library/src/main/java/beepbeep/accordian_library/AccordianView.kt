@@ -3,6 +3,7 @@ package beepbeep.accordian_library
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
+import android.support.transition.AutoTransition
 import android.support.transition.TransitionManager
 import android.util.AttributeSet
 import android.view.MotionEvent
@@ -15,6 +16,8 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
     private val titleViewHolderArray = mutableListOf<ViewHolder>()
 
     private var contentViewHolder: ViewHolder? = null
+
+    var animationDuration = 200L
 
     var selectedPosition = 0
         set(value) {
@@ -119,7 +122,6 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
             }
             set.connect(row.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
             set.connect(row.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
-
         }
 
         for (reversedIndex in titleViewHolderArray.size - 1 downTo selectedPosition + 1) {
@@ -135,7 +137,7 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
             set.connect(row.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
             set.connect(row.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
         }
-        TransitionManager.beginDelayedTransition(this)
+        TransitionManager.beginDelayedTransition(this, AutoTransition().apply { duration = animationDuration })
         set.applyTo(this)
 
         val set2 = ConstraintSet()
@@ -164,7 +166,7 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
             set.connect(content.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
             set.connect(content.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
         }
-        TransitionManager.beginDelayedTransition(this)
+        TransitionManager.beginDelayedTransition(this, AutoTransition().apply { duration = animationDuration })
         set2.applyTo(this)
     }
 
