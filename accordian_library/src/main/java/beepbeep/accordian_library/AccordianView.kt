@@ -20,21 +20,28 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
     var animationDuration = 200L
 
     var selectedPosition = 0
-        set(value) {
-            adapter?.let { _adapter ->
-                if (value < _adapter.getItemCount() && value >= 0 && field != value) {
-                    field = value
-                    applyConstraint()
-                    onBindAllViewHolders()
-                }
-            }
-        }
+        private set
 
     var adapter: AccordianAdapter? = null
         set(value) {
             field = value
             render()
         }
+
+    /**
+     * Update the selected position
+     * The content of the selected position will be expanded
+     * All onBindView*() methods in the adapter will be called
+     */
+    fun updatePosition(_selectedPosition: Int) {
+        adapter?.let { _adapter ->
+            if (_selectedPosition < _adapter.getItemCount() && _selectedPosition >= 0 && selectedPosition != _selectedPosition) {
+                selectedPosition = _selectedPosition
+                applyConstraint()
+                onBindAllViewHolders()
+            }
+        }
+    }
 
     private fun render() {
         createTitleViews()
@@ -57,7 +64,7 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
                     row.setOnClickListener2 {
                         contentViewHolder?.let { _contentViewHolder ->
                             _contentViewHolder.itemView.visibility = View.INVISIBLE
-                            selectedPosition = index
+                            updatePosition(index)
                             onBindAllViewHolders()
                             _contentViewHolder.itemView.visibility = View.VISIBLE
                         }
