@@ -13,7 +13,31 @@ click to show gif
 
 
 ## How to setup
-to be filled in... 🚧👷 
+
+```
+allprojects {
+    repositories {
+        ...
+			  maven { url 'https://jitpack.io' }
+		}
+}
+```
+
+```
+dependencies {
+    implementation 'com.github.worker8:AccordionView:VERSION'
+}
+```
+Replace the `VERSION` with the latest one you can find here: https://github.com/worker8/AccordionView/releases
+
+for example: `implementation 'com.github.worker8:AccordionView:1.0.5'`
+
+You can exclude the support library and use your own version if you face some conflict:
+```
+implementation("com.github.worker8:AccordionView:$libVersions.accordionView") {
+    exclude group: 'com.android.support'
+}
+```
 
 ## How to use
 to be filled in... 🚧👷 
