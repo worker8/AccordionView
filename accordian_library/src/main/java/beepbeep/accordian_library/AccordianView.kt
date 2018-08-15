@@ -25,6 +25,7 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
                 if (value < _adapter.getItemCount() && value >= 0 && field != value) {
                     field = value
                     applyConstraint()
+                    onBindAllViewHolders()
                 }
             }
         }
@@ -57,17 +58,25 @@ class AccordianView @JvmOverloads constructor(context: Context, attrs: Attribute
                         contentViewHolder?.let { _contentViewHolder ->
                             _contentViewHolder.itemView.visibility = View.INVISIBLE
                             selectedPosition = index
-                            titleViewHolderArray.forEachIndexed { innerIndex, innerViewHolder ->
-                                _adapter.onBindViewForTitle(innerViewHolder, innerIndex, arrowDirection(innerIndex))
-                            }
-
-                            _adapter.onBindViewForContent(_contentViewHolder, index)
+                            onBindAllViewHolders()
                             _contentViewHolder.itemView.visibility = View.VISIBLE
                         }
                     }
                     _adapter.onBindViewForTitle(viewHolder, index, arrowDirection(index))
                     titleViewHolderArray.add(viewHolder)
                 }
+            }
+        }
+    }
+
+    private fun onBindAllViewHolders() {
+        adapter?.let { _adapter ->
+            contentViewHolder?.let { _contentViewHolder ->
+                titleViewHolderArray.forEachIndexed { innerIndex, innerViewHolder ->
+                    _adapter.onBindViewForTitle(innerViewHolder, innerIndex, arrowDirection(innerIndex))
+                }
+
+                _adapter.onBindViewForContent(_contentViewHolder, selectedPosition)
             }
         }
     }
