@@ -25,9 +25,9 @@
         android:layout_gravity="center_vertical|end"
         android:layout_margin="15dp"
         android:gravity="center_vertical"
-        android:text="▲"
+        android:text="@string/arrow_up_symbol"
         android:textColor="@color/md_grey_800"
-        android:textSize="24dp" />
+        android:textSize="24sp" />
 
     <View
         android:layout_width="match_parent"

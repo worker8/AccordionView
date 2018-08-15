@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <beepbeep.accordianView.MultiRecipeView
+    <beepbeep.accordionView.MultiRecipeView
         android:id="@+id/multiRecipeView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></beepbeep.accordianView.MultiRecipeView>
+        android:layout_height="match_parent"></beepbeep.accordionView.MultiRecipeView>
 </android.support.constraint.ConstraintLayout>

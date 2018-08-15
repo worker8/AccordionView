@@ -1,4 +1,4 @@
-package beepbeep.accordianView
+package beepbeep.accordionView
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

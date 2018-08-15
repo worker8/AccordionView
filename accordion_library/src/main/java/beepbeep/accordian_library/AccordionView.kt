@@ -10,7 +10,7 @@ import android.view.MotionEvent
 import android.view.View
 
 
-class AccordianView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class AccordionView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
         ConstraintLayout(context, attrs, defStyleAttr) {
 
     private val titleViewHolderArray = mutableListOf<ViewHolder>()

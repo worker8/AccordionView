@@ -1,4 +1,4 @@
-package beepbeep.accordianView
+package beepbeep.accordionView
 
 import org.junit.Test
 

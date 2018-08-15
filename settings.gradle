@@ -1,1 +1,1 @@
-include ':app', ':accordian_library'
+include ':app', ':accordion_library'
