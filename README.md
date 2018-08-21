@@ -1,3 +1,5 @@
+<img src="https://user-images.githubusercontent.com/1988156/44387037-52893500-a55f-11e8-999b-13533fc29b11.png" width="200px" />
+
 # AccordionView
 
 This is an implementation of `AccordionView` in Android using `ConstraintLayout` and `ConstraintSet`.
@@ -18,8 +20,8 @@ click to show gif
 allprojects {
     repositories {
         ...
-			  maven { url 'https://jitpack.io' }
-		}
+	maven { url 'https://jitpack.io' }
+    }
 }
 ```
 
