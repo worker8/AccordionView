@@ -65,7 +65,6 @@ class AccordionView @JvmOverloads constructor(context: Context, attrs: Attribute
                         contentViewHolder?.let { _contentViewHolder ->
                             _contentViewHolder.itemView.visibility = View.INVISIBLE
                             updatePosition(index)
-                            onBindAllViewHolders()
                             _contentViewHolder.itemView.visibility = View.VISIBLE
                         }
                     }
