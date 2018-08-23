@@ -2,7 +2,7 @@ package beepbeep.accordian_library
 
 import android.view.ViewGroup
 
-interface AccordianAdapter {
+interface AccordionAdapter {
     enum class ArrowDirection {
         UP, DOWN, NONE
     }

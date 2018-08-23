@@ -22,7 +22,7 @@ class AccordionView @JvmOverloads constructor(context: Context, attrs: Attribute
     var selectedPosition = 0
         private set
 
-    var adapter: AccordianAdapter? = null
+    var adapter: AccordionAdapter? = null
         set(value) {
             field = value
             render()
@@ -111,13 +111,13 @@ class AccordionView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
 
-    private fun arrowDirection(index: Int): AccordianAdapter.ArrowDirection {
+    private fun arrowDirection(index: Int): AccordionAdapter.ArrowDirection {
         return if (selectedPosition == index) {
-            AccordianAdapter.ArrowDirection.NONE
+            AccordionAdapter.ArrowDirection.NONE
         } else if (index < selectedPosition) {
-            AccordianAdapter.ArrowDirection.DOWN
+            AccordionAdapter.ArrowDirection.DOWN
         } else {
-            AccordianAdapter.ArrowDirection.UP
+            AccordionAdapter.ArrowDirection.UP
         }
     }
 
