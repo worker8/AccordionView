@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import beepbeep.accordionView.DataModel
 import beepbeep.accordionView.R
-import beepbeep.accordian_library.AccordionAdapter
-import beepbeep.accordian_library.AccordionView
+import beepbeep.accordion_library.AccordionAdapter
+import beepbeep.accordion_library.AccordionView
 import kotlinx.android.synthetic.main.row_content.view.*
 import kotlinx.android.synthetic.main.row_title.view.*
 

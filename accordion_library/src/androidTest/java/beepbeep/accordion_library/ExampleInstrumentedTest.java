@@ -1,4 +1,4 @@
-package beepbeep.accordian_library;
+package beepbeep.accordion_library;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("beepbeep.accordian_library.test", appContext.getPackageName());
+        assertEquals("beepbeep.accordion_library.test", appContext.getPackageName());
     }
 }

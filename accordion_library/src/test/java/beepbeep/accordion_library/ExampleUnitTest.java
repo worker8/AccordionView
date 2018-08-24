@@ -1,4 +1,4 @@
-package beepbeep.accordian_library;
+package beepbeep.accordion_library;
 
 import org.junit.Test;
 

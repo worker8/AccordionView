@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <beepbeep.accordian_library.AccordionView
-        android:id="@+id/accordian_view"
+    <beepbeep.accordion_library.AccordionView
+        android:id="@+id/accordion_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/md_white_1000"
