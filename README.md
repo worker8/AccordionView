@@ -54,7 +54,7 @@ https://github.com/worker8/AccordionView/blob/master/app/src/main/java/beepbeep/
 
 It works very similarly to `RecyclerView`. 
 
-#### Include in xml
+### Include in xml
 First you need to include it in the xml. Example can be found [here](https://github.com/worker8/AccordionView/blob/6878cf41dec69e092143f5a6a46f7140fc27ba43/app/src/main/res/layout/activity_random_fact.xml)
 
 ```
@@ -95,21 +95,21 @@ It works similarly to [RecyclerView.Adapter](https://developer.android.com/refer
     fun onBindViewForContent(viewHolder: AccordionView.ViewHolder, position: Int)
 fun getItemCount(): Int
 ```
-##### view creation
+#### view creation
 `onCreateViewHolderForTitle` and `onCreateViewHolderForContent` are used for view creation:
 
 ![readme-oncreate](https://user-images.githubusercontent.com/1988156/44570711-b018be00-a7b9-11e8-9113-e32d0ed3f5cd.png)
 
-##### view binding
+#### view binding
 `onBindViewForTitle` and `onBindViewForContent` on the other hand are used for view binding, such as: setting up the data, and setting up listeners, loading images, etc.
 
-##### data count
+#### data count
 `getItemCount` on the other hand tells `AccordionView` how many items you have.
 
-### The Implementation Details of AccordionView
+## The Implementation Details of AccordionView
 Refer to this blog post where I described in depth:
 
 https://bloggie.io/@_junrong/the-making-of-accordionview-using-constraintlayout
 
-### Caveat
+## Caveat
 This view does not take into account if you supply too many data and fill up the screen, it is best used for cases where you only have a few items to be shown.
