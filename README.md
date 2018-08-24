@@ -106,8 +106,8 @@ fun getItemCount(): Int
 ##### data count
 `getItemCount` on the other hand tells `AccordionView` how many items you have.
 
-### Technical Details
-Please refer to this blog post where I described in depth:
+### The Implementation Details of AccordionView
+Refer to this blog post where I described in depth:
 
 https://bloggie.io/@_junrong/the-making-of-accordionview-using-constraintlayout
 
